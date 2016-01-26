@@ -43,7 +43,7 @@
 		<mvc:interceptors>
 			<mvc:interceptor>
 				<mvc:mapping path="/**"/>
-				<bean class="com.yonyou.hotusm.moudle.sys.interceptor.LogInterceptor"/>
+				<bean class="com.yonyou.hotusm.module.sys.interceptor.LogInterceptor"/>
 			</mvc:interceptor>
 		</mvc:interceptors>
 		<!-- 上传文件拦截，设置最大上传文件大小   10M=10*1024*1024(B)=10485760 bytes -->  

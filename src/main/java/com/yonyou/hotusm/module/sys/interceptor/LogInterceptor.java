@@ -1,4 +1,4 @@
-package com.yonyou.hotusm.moudle.sys.interceptor;
+package com.yonyou.hotusm.module.sys.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
