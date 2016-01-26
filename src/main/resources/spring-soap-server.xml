@@ -12,7 +12,7 @@
 	
 	  <jaxws:endpoint 
      		id="findUser" 
-    	 	implementor="com.yonyon.hotusm.common.remote.impl.FindUserImpl" 
+    	 	implementor="com.yonyou.hotusm.common.remote.impl.FindUserImpl" 
      		address="/findUser">
      		<!-- 
      		设置拦截器  class为自定义拦截器全路径
