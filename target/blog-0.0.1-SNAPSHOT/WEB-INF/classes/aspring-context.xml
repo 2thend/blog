@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd"
+	default-lazy-init="true">
+	<!-- <bean class="com.yonyou.module.sys.util.TestBeanLazy"/> -->
+	<!-- 加载配置文件  可以再spring容器中使用${xxx}来使用属性 -->
+	<context:property-placeholder location="classpath:yonyou.properties"/>
+	<!-- 扫描除了Controller下面的所有包 ..代表的是所有 -->
+	<context:component-scan base-package="..">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<!-- 设置定时执行任务 -->
+	<!-- <context:annotation-config/>
+	<task:executor id="executor" pool-size="10"/>
+	<task:scheduler id="scheduler" pool-size="10"/>
+	<task:annotation-driven executor="executor" scheduler="scheduler" proxy-target-class="true"/>
+	 -->
+	<!-- 配置MyBatis
+		typeAliasesPackage 扫描哪个包下的域对象
+		typeAliasesSuperType 扫描包以下面的这个类作为父类的域对象
+	 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="typeAliasesPackage" value="com.yonyou.hotusm"></property>
+		<property name="typeAliasesSuperType" value="com.yonyou.hotusm.common.persistence.BaseEntity"></property>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:/mapping/module/**/*.xml"></property>
+	</bean>
+	<!-- 自动扫描器 -->
+	<bean id="mapperScreenConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+ 		<property name="annotationClass" value="com.yonyou.hotusm.common.persistence.annoation.MyBatisDao"></property>
+ 		<property name="basePackage" value="com.yonyou.hotusm"></property>
+ 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+ 	</bean>
+ 	
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+			<property name="jdbcUrl" value="${jdbcUrl}"></property>
+			<property name="user" value="${user}"></property>
+			<property name="password" value="${password}"></property>
+			<property name="driverClass" value="${driverClass}"></property>
+	</bean>
+	<!-- 缓存 -->
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:${ehcache.file}"></property>
+	</bean>
+	
+	<bean id="gson" class="com.google.gson.Gson"/>
+</beans>

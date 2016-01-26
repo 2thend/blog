@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:yonyou.properties" />
+	
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="1000"/> 
+        <property name="maxIdle" value="10"/> 
+        <property name="minIdle" value="1"/>
+        <property name="maxWaitMillis" value="30000"/> 
+        <property name="testOnBorrow" value="true"/> 
+        <property name="testOnReturn" value="true"/> 
+        <property name="testWhileIdle" value="true"/>
+        <!-- <property name="testWhileIdle" value="true"/> -->
+    </bean>
+    
+       <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" destroy-method="destroy">
+		<constructor-arg ref="jedisPoolConfig"/> 
+		<constructor-arg>
+			<list> 
+			<bean class="redis.clients.jedis.JedisShardInfo"> 
+				<constructor-arg index="0" value="127.0.0.1"/>
+			    <constructor-arg index="1" value="6379"/>
+				<constructor-arg index="2" value="instance:01"/>
+			</bean>
+			<bean class="redis.clients.jedis.JedisShardInfo">
+				<constructor-arg index="0" value="127.0.0.1"/>
+			    <constructor-arg index="1" value="6380"/>
+				<constructor-arg index="2" value="instance:02"/>
+			</bean> 
+			<bean class="redis.clients.jedis.JedisShardInfo">
+				<constructor-arg index="0" value="127.0.0.1"/>
+			    <constructor-arg index="1" value="6381"/>
+				<constructor-arg index="2" value="instance:03"/>
+			</bean>
+			</list>
+		</constructor-arg>
+		</bean>
+		
+   <bean class="redis.clients.jedis.JedisSentinelPool">
+    	<constructor-arg index="0" value="mymaster"/>
+    	<constructor-arg index="1">
+    		<set>
+    			<value>127.0.0.1:26379</value>
+    		</set>
+    	</constructor-arg>
+    	<constructor-arg index="2" ref="jedisPoolConfig"/>
+    </bean>
+   <!--  <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool"  scope="singleton">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1">
+            <list>
+            <ref bean="master"/>
+            <ref bean="slave01"/>
+            <ref bean="slave02"/>
+            </list>
+        </constructor-arg>
+    </bean> -->
+    <!-- 作为集群的一个子节点 -->
+    <!--  <bean id="master" class="redis.clients.jedis.JedisShardInfo">
+    	  <constructor-arg name="host" value="127.0.0.1" />
+          <constructor-arg name="port" value="6379" />
+          <constructor-arg name="timeout" value="1000" />
+          <constructor-arg name="weight" value="1" />
+    </bean>
+        <bean id="slave01" class="redis.clients.jedis.JedisShardInfo">
+    	  <constructor-arg name="host" value="127.0.0.1" />
+          <constructor-arg name="port" value="6380" />
+          <constructor-arg name="timeout" value="1000" />
+          <constructor-arg name="weight" value="1" />
+    </bean>
+        <bean id="slave02" class="redis.clients.jedis.JedisShardInfo">
+    	  <constructor-arg name="host" value="127.0.0.1" />
+          <constructor-arg name="port" value="6381" />
+          <constructor-arg name="timeout" value="1000" />
+          <constructor-arg name="weight" value="1" />
+    </bean>
+    -->
+
+</beans>

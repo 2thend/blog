@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	                    http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+	                    http://cxf.apache.org/transports/http/configuration
+                        http://cxf.apache.org/schemas/configuration/http-conf.xsd"
+       					>
+    
+    <description>Apache CXF Web Service Server端配置</description>
+	
+	  <jaxws:endpoint 
+     		id="findUser" 
+    	 	implementor="com.yonyon.hotusm.common.remote.impl.FindUserImpl" 
+     		address="/findUser">
+     		<!-- 
+     		设置拦截器  class为自定义拦截器全路径
+     		 
+     		 <jaxws:inInterceptors>
+     		 	<bean class=""></bean>
+     		 </jaxws:inInterceptors>
+     		 -->
+   	 </jaxws:endpoint>
+</beans>
