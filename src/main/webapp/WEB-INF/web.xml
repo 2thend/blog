@@ -54,6 +54,19 @@
  	<url-pattern>/</url-pattern>
  </servlet-mapping>
  
+ <!-- 设置REST风格的请求
+ 	能够将POST请求转化为 DELETE 或者是PUT请求.
+ 	:通过在表单的input的name为_method,值为DELETE或者是PUT进行指定
+  -->
+ 	<filter>
+ 		<filter-name>hiddenHttpMethodFilter</filter-name>
+ 		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+ 	</filter>
+ 	
+ 	<filter-mapping>
+		<filter-name>hiddenHttpMethodFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
  <!-- shiro -->
  	<filter>
 		<filter-name>shiroFilter</filter-name>
@@ -88,11 +101,11 @@
 	
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/error/404.jsp</location>
+		<location>/WEB-INF/views/module/error/404.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/views/error/500.jsp</location>
+		<location>/WEB-INF/views/module/error/500.jsp</location>
 	</error-page>
 
 </web-app>

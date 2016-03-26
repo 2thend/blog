@@ -79,7 +79,12 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    
+    /**
+     * 是否存在这个key
+     * @param key
+     * @return
+     */
     public Boolean exists(String key) {
         Boolean result = false;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -97,7 +102,13 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    /**
+     * 
+     *    @return Status code reply, specifically: "none" if the key does not exist "string" if the key
+     *         contains a String value "list" if the key contains a List value "set" if the key
+   	 *         contains a Set value "zset" if the key contains a Sorted Set value "hash" if the key
+     *         contains a Hash value
+     */
     public String type(String key) {
         String result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -118,7 +129,7 @@ public class JedisTemplate {
     }
 
     /**
-     * 在某段时间后实现
+     * 设置某一个缓存在一个时间段后自动删除
      * 
      * @param key
      * @param unixTime
@@ -144,7 +155,7 @@ public class JedisTemplate {
     }
 
     /**
-     * 在某个时间点失效
+     * 设置某一个缓存在某个时间点失效
      * 
      * @param key
      * @param unixTime
@@ -169,6 +180,13 @@ public class JedisTemplate {
         return result;
     }
 
+    /**
+     * 
+     * 返回指定的可以的这个缓存剩下的存活时间,如果设置缓存没有设置expire的话,那么返回-1,如果不存在
+     * 这个key的话,那么返回-2(在2.8以前的版本,这两种情况全部返回-1)
+     * @param key
+     * @return
+     */
     public Long ttl(String key) {
         Long result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -187,7 +205,13 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    /**
+     * 
+     * @param key
+     * @param offset
+     * @param value
+     * @return
+     */
     public boolean setbit(String key, long offset, boolean value) {
 
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -207,6 +231,12 @@ public class JedisTemplate {
         return result;
     }
 
+    /**
+     * 
+     * @param key
+     * @param offset
+     * @return
+     */
     public boolean getbit(String key, long offset) {
         Jedis Jedis = redisDataSource.getRedisClient();
         boolean result = false;
@@ -225,7 +255,15 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    
+    /**
+     * 
+     * 设置某一段字符串的缓存
+     * @param key
+     * @param offset
+     * @param value
+     * @return
+     */
     public long setrange(String key, long offset, String value) {
         Jedis Jedis = redisDataSource.getRedisClient();
         long result = 0;
@@ -243,7 +281,14 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    
+    /**
+     * 返回字符串的某一段
+     * @param key
+     * @param startOffset
+     * @param endOffset
+     * @return
+     */
     public String getrange(String key, long startOffset, long endOffset) {
         Jedis Jedis = redisDataSource.getRedisClient();
         String result = null;
@@ -262,7 +307,13 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    
+    /**
+     * 返回指定key的值,并且
+     * @param key
+     * @param value
+     * @return
+     */
     public String getSet(String key, String value) {
         String result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -571,6 +622,11 @@ public class JedisTemplate {
         return result;
     }
 
+    /**
+     * 删除缓存
+     * @param key 键
+     * @return
+     */
     public Long del(String key) {
         Long result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -627,7 +683,12 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    
+    /**
+     * 返回一个指定key的Set集合
+     * @param key
+     * @return
+     */
     public Set<String> hkeys(String key) {
         Set<String> result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -647,6 +708,11 @@ public class JedisTemplate {
         return result;
     }
 
+    /**
+     * 返回指定key的List
+     * @param key
+     * @return
+     */
     public List<String> hvals(String key) {
         List<String> result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -666,6 +732,11 @@ public class JedisTemplate {
         return result;
     }
 
+    /**
+     * 返回指定Key的map
+     * @param key
+     * @return
+     */
     public Map<String, String> hgetAll(String key) {
         Map<String, String> result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -686,6 +757,7 @@ public class JedisTemplate {
     }
 
     // ================list ====== l表示 list或 left, r表示right====================
+    //在list中末尾增加一个数据
     public Long rpush(String key, String string) {
         Long result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -704,7 +776,12 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    /**
+     * 在List左边增加一个
+     * @param key
+     * @param string
+     * @return
+     */
     public Long lpush(String key, String string) {
         Long result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -724,7 +801,11 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    /**
+     * 长度
+     * @param key
+     * @return
+     */
     public Long llen(String key) {
         Long result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -744,6 +825,13 @@ public class JedisTemplate {
         return result;
     }
 
+    /**
+     * 显示list
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
     public List<String> lrange(String key, long start, long end) {
         List<String> result = null;
         Jedis Jedis = redisDataSource.getRedisClient();
@@ -762,7 +850,13 @@ public class JedisTemplate {
         }
         return result;
     }
-
+    /**
+     * 截取list中的一部分
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
     public String ltrim(String key, long start, long end) {
         String result = null;
         Jedis Jedis = redisDataSource.getRedisClient();

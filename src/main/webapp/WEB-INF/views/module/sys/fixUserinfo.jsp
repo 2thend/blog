@@ -15,9 +15,9 @@
 			$.jBox(
 					"iframe:${ctx}/choosePhoto",
 					{
-						title:"百度一下",
-						width:800,
-						height:350,
+						title:"修改头像",
+						width:650,
+						height:450,
 						buttons:{'关闭':true}
 					}
 			);

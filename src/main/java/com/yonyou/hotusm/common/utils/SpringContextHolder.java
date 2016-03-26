@@ -25,13 +25,10 @@ public class SpringContextHolder implements ApplicationContextAware,DisposableBe
 		
 		SpringContextHolder.applicationContext=applicationContext;
 	}
-	//清空applicationContext 设置其为null
 	public void destroy() throws Exception {
 		SpringContextHolder.clearHolder();
 	}
-	//获得applicationContext
 	public static ApplicationContext getApplicationContext() {
-		//assertContextInjected();
 		return applicationContext;
 	}
 	
@@ -40,15 +37,13 @@ public class SpringContextHolder implements ApplicationContextAware,DisposableBe
 	}
 	//获取Bean
 	public static <T> T getBean(Class<T> requiredType){
-		//assertContextInjected();
 		return (T) getApplicationContext().getBean(requiredType);
 	}
 	@SuppressWarnings("unchecked")
 	public static <T> T getBean(String name){
-		//assertContextInjected();
 		return (T) getApplicationContext().getBean(name);
 	}
-	//判断application是否为空
+	
 	public static void assertContextInjected(){
 		Validate.isTrue(applicationContext==null, "application未注入 ，请在springContext.xml中注入SpringHolder!");
 	}

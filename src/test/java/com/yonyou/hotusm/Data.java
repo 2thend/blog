@@ -1,4 +1,4 @@
-package com.yonyou.hotusm.test;
+package com.yonyou.hotusm;
 /**
  * 详细数据信息
  * @author Hotusm

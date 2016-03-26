@@ -7,9 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yonyou.hotusm.common.mapper.JsonMapper;
 import com.yonyou.hotusm.common.web.BaseController;
@@ -17,10 +16,8 @@ import com.yonyou.hotusm.module.cms.entity.Article;
 import com.yonyou.hotusm.module.cms.entity.ArticleData;
 import com.yonyou.hotusm.module.cms.service.ArticleService;
 import com.yonyou.hotusm.module.nosql.redis.JedisTemplate;
-import com.yonyou.hotusm.module.sys.dao.UserDao;
 import com.yonyou.hotusm.module.sys.entity.User;
 import com.yonyou.hotusm.module.sys.entity.Weather;
-import com.yonyou.hotusm.module.sys.security.FormAuthenticationFilter;
 import com.yonyou.hotusm.module.sys.service.UserService;
 import com.yonyou.hotusm.module.sys.service.Webservice;
 
@@ -28,23 +25,17 @@ import com.yonyou.hotusm.module.sys.service.Webservice;
 @Controller
 public class FrontController extends BaseController{
 	@Autowired
-	FormAuthenticationFilter formAuthenticationFilter;
+	private UserService userService;
 	@Autowired
-	UserService userService;
-	@Autowired
-	ArticleService articleService;
+	private ArticleService articleService;
 	@Autowired
 	private JedisTemplate jedisTemplate;
 	@Autowired
-	private UserDao userDao;
-	@Autowired
 	private Webservice webservice;
-	
 	
 
 	@RequestMapping(value="")
 	public String front(Model model,HttpServletRequest request){
-		userDao.get("1");
 		//测试login的url
 //		String url=formAuthenticationFilter.getSuccessUrl();
 //		System.out.println(url);
@@ -102,9 +93,20 @@ public class FrontController extends BaseController{
 		model.addAttribute("weather", w);
 		return "front/index";
 	}
-	
-	@RequestMapping(value="/articleView")
-	public String articleView(@RequestParam(required=false) String articleId,Model model){
+	/**
+	 * 
+	 * 1.@RequestParam,@RequestHeader,@CookieValue这三个注解都是相似的含义,都是获取到
+	 * 相对应的值
+	 * 
+	 * @param articleId  文章的id
+	 * @param model
+	 * @param sessionId
+	 * @return
+	 */
+	@RequestMapping(value="/{articleId}.html")
+	public String articleView(@PathVariable("articleId") String articleId,Model model/*,@CookieValue("JSESSIONID") String sessionId*/){
+		/*通过@CookieValue 将cookie的值注入到目标方法中*/
+		//System.out.println("sessionId:"+sessionId);
 		//User user=UserUtils.getUser();
 		Article article=new Article();
 		article.setId(articleId);
@@ -114,19 +116,9 @@ public class FrontController extends BaseController{
 		model.addAttribute("article", article);
 		model.addAttribute("articleData", ad);
 		User user=article.getCreateBy();
-		user=userDao.getById(user.getId());
+		user=userService.getUser(user);
 		model.addAttribute("user", user);
 		return "front/articleView";
 	}
 	
-	@ResponseBody
-	@RequestMapping("testJson")
-	public  List<User> testJson(){
-		List<User> users=com.google.common.collect.Lists.newArrayList();
-		User u=new User();
-		u.setName("123");
-		users.add(u);
-		return users;
-	}
-
 }

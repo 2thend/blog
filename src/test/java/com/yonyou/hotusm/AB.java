@@ -1,4 +1,4 @@
-package com.yonyou.hotusm.test;
+package com.yonyou.hotusm;
 
 public class AB extends AbstractTest{
 

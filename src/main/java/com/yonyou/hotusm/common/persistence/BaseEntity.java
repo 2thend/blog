@@ -21,7 +21,7 @@ public abstract class BaseEntity<T> implements Serializable{
 	 */
 	protected String id;
 	/**
-	 * 是否是新记录 0代表不是新记录
+	 * 是否是新记录 1代表不是新记录0代表是新记录
 	 */
 	protected int isNewRecord=0;
 	

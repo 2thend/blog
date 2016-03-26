@@ -33,7 +33,7 @@ $(function(){
       <ul class="menuson">
         <li><cite></cite><a href="${ctx}/menu/workspace" target="rightFrame">博客导航</a><i></i></li>
         <li><cite></cite><a href="${ctx}/fixUserinfo" target="rightFrame">个人信息</a><i></i></li>
-        <li><cite></cite><a href="${ctx}/menu/sysManager" target="rightFrame">博客管理</a><i></i></li>
+        <li><cite></cite><a href="${ctx}/a/article/sysManager" target="rightFrame">博客管理</a><i></i></li>
        </ul>    
     </dd>
     </dl>

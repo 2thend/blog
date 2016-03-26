@@ -26,12 +26,20 @@ public class ValidateArticlAspect {
 	 */
 	@After(value="execution(* com.yonyou.hotusm.module.cms.service.ArticleService.save(..))&&args(article)",argNames="article")
 	public void afterPublish(Object object){
-		Article article=(Article) object;
-		//将文章放入到最新文章中
-		jedisTemplate.lpush(Article.ARTICLE_NEW, JsonMapper.toJsonString(article));
+		if(object instanceof Article){
+			Article article=(Article) object;
+			
+			if(article.getIsNewRecord()!=1){
+				//将文章放入到最新文章中
+				jedisTemplate.lpush(Article.ARTICLE_NEW, JsonMapper.toJsonString(article));
+				
+				//单篇文章详细信息
+				jedisTemplate.set(Article.ARTICLE+article.getId(), JsonMapper.toJsonString(article));
+			}
+			
+		}
 		
-		//单篇文章详细信息
-		jedisTemplate.set(Article.ARTICLE+article.getId(), JsonMapper.toJsonString(article));
+		
 	}
 	
 	

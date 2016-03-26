@@ -65,5 +65,23 @@
 		from <include refid="joinColumn"/>
 		where a.id=#{id}
 	</select>
-	
+	<delete id="delete">
+		delete from cms_article where id=#{id}
+	</delete>
+	<update id="update">
+		update cms_article set 
+		<if test="title!=null">
+			title=#{title},
+		</if>
+		<if test="category!=null">
+			category=#{category.id},
+		</if>
+		update_by =#{updateBy.id},
+		update_date=#{updateDate}
+		where id=#{id}
+	</update>
+	<select id="getNewArticles" resultType="Article">
+		select <include refid="acticleColumn"/>
+		from <include refid="joinColumn"/> order by create_date desc
+	</select>
 </mapper>

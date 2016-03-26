@@ -27,4 +27,15 @@ public class Category extends DataEntity<Category>{
 	public String toString() {
 		return this.title;
 	}
+	public Category(String id,String title, String description) {
+		super();
+		setId(id);
+		this.title = title;
+		this.description = description;
+	}
+	public Category() {
+		super();
+	}
+	
+	
 }

@@ -7,7 +7,7 @@ import com.yonyou.hotusm.common.persistence.DataEntity;
 public class Article extends DataEntity<Article>{
 	
 	public static String ARTICLE_NEW="new:article";
-	public static String ARTICLE="article";
+	public static String ARTICLE="article:";
 	/**
 	 * 
 	 */
@@ -19,7 +19,6 @@ public class Article extends DataEntity<Article>{
 	private String image;	//图片
 	private String keywords; //关键字
 	private Integer hits; //点击数
-	@NotEmpty
 	private String type;//文章的类型 分类下还有各种类型
 	
 	private ArticleData articleData; //文章附表
@@ -71,7 +70,9 @@ public class Article extends DataEntity<Article>{
 	}
 	@Override
 	public String toString() {
-		return this.title;
+		return "Article [title=" + title + ", image=" + image + ", keywords="
+				+ keywords + ", hits=" + hits + ", type=" + type
+				+ ", category=" + category + ",id="+id+"]";
 	}
 	
 }

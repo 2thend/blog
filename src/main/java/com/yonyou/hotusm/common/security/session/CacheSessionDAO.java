@@ -33,14 +33,14 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
 			}
 		}
 		super.doCreate(session);
-		System.out.println("doCreate:"+" sessionId"+session.getId());
+		//System.out.println("doCreate:"+" sessionId"+session.getId());
 		return session.getId();
 	}
 
 	@Override
 	 public Session readSession(Serializable sessionId) throws UnknownSessionException{
-		System.out.println("readSession:"+" sessionId"+sessionId);
-		System.out.println();
+		//System.out.println("readSession:"+" sessionId"+sessionId);
+		//System.out.println();
 		try {
 			Session s=null;
 			HttpServletRequest request=Servlets.getRequest();
@@ -69,14 +69,14 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
 	 
 	@Override
 	protected Session doReadSession(Serializable sessionId) {
-		System.out.println("doReadSession:"+" sessionId"+sessionId);
+		//System.out.println("doReadSession:"+" sessionId"+sessionId);
 		return super.doReadSession(sessionId);
 	}
 	
 	
 	@Override
 	protected void doUpdate(Session session) {
-		System.out.println("doUpdate"+" sessionId"+session.getId());
+//		System.out.println("doUpdate"+" sessionId"+session.getId());
 		if(session==null||session.getId()==null){
 			return;
 		}
@@ -101,7 +101,7 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
 
 	@Override
 	protected void doDelete(Session session) {
-		System.out.println("doDelete");
+		//System.out.println("doDelete");
 		if(session==null||session.getId()==null){
 			return;
 		}

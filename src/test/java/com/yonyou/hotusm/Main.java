@@ -1,4 +1,4 @@
-package com.yonyou.hotusm.test;
+package com.yonyou.hotusm;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

@@ -16,7 +16,6 @@
 	$(document).ready(function(){
 		
 		$("#testjson").click(function(){
-			alert("1111");
 			
 			var url="${ctx}/f/testJson";
 			var dataType = "text";
@@ -106,7 +105,7 @@
 				</div>
 				<c:forEach items="${articles}" var="item">
 				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${item.id}">${item.title}</a></h6>
+					<h6><a href="${ctx}/f/${item.id}.html">${item.title}</a></h6>
 					<div class="aContent">
 					<p>${fnc:transCodage(item.articleData.content)}
 					<br/>

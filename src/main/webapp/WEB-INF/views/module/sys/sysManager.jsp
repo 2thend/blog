@@ -67,35 +67,33 @@ $(document).ready(function(e) {
   	</ul>
     </div> 
     
-    <form id="detailForm" method="post" action="${ctx}/cms/save">
+    <form:form id="detailForm" method="post" action="${ctx}/cms/save" modelAttribute="article">
+  	<c:if test="${not empty article.id}">
+  		<form:hidden path="id"/>
+  	</c:if>
   	<div id="tab1" class="tabson">
     <ul class="forminfo">
-    <li><label>博客名称<b>*</b></label><input name="title" type="text" class="dfinput" value=""  style="width:518px;"/></li>
+    <li><label>博客名称<b>*</b></label>
+    <form:input path="title" cssClass="dfinput" style="width:518px;"/><!-- <input name="title" type="text" class="dfinput" value="" style="width:518px;"/> -->&nbsp;${error}</li>
    
     <li><label>博客分类<b>*</b></label>  
     
 
     <div class="vocation">
-    <select class="select1" name="category.id">
-    <option value="001">Java技术</option>
-    <option value="002">.net技术</option>
-    <option value="003">数据库技术</option>
-    <option value="004">安卓技术</option>
-    <option value="005">IOS技术</option>
-    <option value="006">WEB前端技术</option>
-    </select>
+    <form:select path="category.id" cssClass="select1" items="${categorys}" itemLabel="title" itemValue="id"></form:select>
     </div>
     
     </li>
     <li>
-    
-    	<textarea id="content" name="content"></textarea>
+    	
+    	<form:textarea path="articleData.content" id="content"/>
     	<input type="hidden" value=""/>
-    	<li><label>&nbsp;</label><input name="" type="submit" class="btn" value="马上发布"/></li>
+    	<li><label>&nbsp;</label>
+    	<input name="" type="submit" class="btn" value="马上发布"/></li>
 	
     
     </li>
-    </form>
+    </form:form>
     </ul>
     
     </div> 
@@ -140,12 +138,17 @@ $(document).ready(function(e) {
         <tbody>
         <c:forEach items="${articles}" var="item">
         <tr>
-        <td><a href="${ctx}/f/articleView?articleId=${item.id}" target="_blank">${item.title}</a></td>
-        <td>${item.createDate}</td>
-        <td>${item.updateDate}</td>
-        <td>${item.hits}</td>
-        <td>2</td>
-        <td><a href="#" class="tablelink">编辑</a>     <a href="#" class="tablelink"> 删除</a></td>
+	        <td>
+	        	<a href="${ctx}/f/${item.id}.html" target="_blank">${item.title}</a>
+	        </td>
+	        <td>${item.createDate}</td>
+	        <td>${item.updateDate}</td>
+	        <td>${item.hits}</td>
+	        <td>2</td>
+	        <td>
+	        	<a href="${ctx}/a/article/form?id=${item.id}" class="tablelink">编辑</a>
+	            <a href="${ctx}/a/article/del?id=${item.id}" class="tablelink">删除</a>
+	        </td>
         </tr>
         </c:forEach>
     

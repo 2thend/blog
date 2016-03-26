@@ -1,4 +1,4 @@
-package com.yonyou.hotusm.test;
+package com.yonyou.hotusm;
 
 import java.io.IOException;
 import java.io.InputStream;

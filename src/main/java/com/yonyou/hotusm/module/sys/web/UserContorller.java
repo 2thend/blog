@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yonyou.hotusm.common.servlet.ValidateCodeServlet;
@@ -35,7 +36,19 @@ import com.yonyou.hotusm.module.sys.util.UserUtils;
  * @author Hotusm
  *
  */
-
+/**
+ * @SessionAttributes 的用法:能够将储存在(Model ModelMap Map)中的数据放入到session中.
+ * 1.@SessionAttributes的value指的是放入到上面模型中的属性名.
+ * 2.注解的第二个参数是types,指的是将模型中含有特定的类型的参数放入到session域中
+ * 3.同时对于ModelAndView中同样是适用(因为ModelAndView封装了ModelMap)
+ * 4.注意，这个注解只能够放在类上面
+ * @see org.springframework.ui.Model
+ * @see org.springframework.ui.ModelMap
+ * @see org.springframework.web.servlet.ModelAndView
+ * @author Hotusm
+ *
+ */
+//@SessionAttributes(value={"user"},types={User.class})
 @Controller
 public class UserContorller extends BaseController{
 	
@@ -67,6 +80,9 @@ public class UserContorller extends BaseController{
 		User user=new User();
 		user.setLoginName("superadmin");
 		User user2 = userService.getUser(user);
+		/*
+		 * 在类注解上同时将user放入到了会话中
+		 */
 		model.addAttribute("user", user2);
 		return "sys/dataSource";
 	}

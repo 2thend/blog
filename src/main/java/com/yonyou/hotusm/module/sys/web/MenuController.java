@@ -67,12 +67,5 @@ public class MenuController extends BaseController{
 		
 		return "sys/file";
 	}
-	@RequestMapping("/sysManager")
-	public String sysManager(Model model){
-		List<Article> articles=articleService.findArticleByUser(null);
-		model.addAttribute("articles", articles);
-		return "sys/sysManager";
-	}
-	
 
 }
