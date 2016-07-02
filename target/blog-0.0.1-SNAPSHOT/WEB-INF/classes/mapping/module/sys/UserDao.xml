@@ -125,5 +125,18 @@
 		SELECT <include refid="userColumns"/> from sys_user
 		where id=#{id}
 	</select>
+	<update id="update">
+		update sys_user set
+			<if test="password!=null and password!=''">
+			password=#{password},
+			</if>
+			name=#{name},
+			address=#{address},
+			photo=#{photo},
+			age=#{age},
+			phone=#{phone},
+			birthday=#{birthday}
+			where id=#{id}
+	</update>
 	
 </mapper>

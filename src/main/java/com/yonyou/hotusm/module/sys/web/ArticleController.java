@@ -22,7 +22,6 @@ public class ArticleController extends BaseController{
 	@Autowired
 	private ArticleService articleService;
 	
-	
 	/**
 	 * 
 	 * @ModelAttribute的使用方式:

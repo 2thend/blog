@@ -9,9 +9,33 @@
 <link href="${ctxStatic}/front/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".article img").hide();
+	});
+	$(document).ready(function(){
+		
+		$("#testjson").click(function(){
+			
+			var url="${ctx}/f/testJson";
+			var dataType = "text";
+			$.post(url,dataType,function(data){
+				alert(data);
+			});
+			
+			return false;
+		});
+	});
 
+</script>
+<style type="text/css">
+	
+</style>
 </head>
 <body>
+<div>
+	城市:${weather.cityName}温度:${weather.tem}状态:${weather.data}
+</div>
 	<!-- header-section-starts -->
 	<div class="header">
 		<div class="container">
@@ -34,8 +58,10 @@
 			</div>
 			<div class="navigation">
 				<ul>
-					<li><a href="${ctx }/a/register" id="reg">注册</a></li>
+				<shiro:notAuthenticated>
+					<li><a href="${ctx}/a/register" id="reg">注册</a></li>
 					<li><a href="${ctx}/a" id="login">登录</a></li>
+					</shiro:notAuthenticated>
 					<li><a class="active" href="${ctx}/a">个人博客</a></li>
 				</ul>
 			</div>
@@ -76,184 +102,18 @@
 			<div class="col-md-7 content-left">
 				<div class="article">
 					<h5 class="head">最新博客</h5>
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
 				</div>
+				<c:forEach items="${articles}" var="item">
 				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-						
-				</div>
-				<div class="article">
-					<h6><a href="${ctx}/f/articleView?articleId=${articleId }">Oracle数据泵操作</a></h6>
-					<p>EXPDP和IMPDP使用说明
-						Oracle Database 10g引入了最新的数据泵(Data Dump)技术，数据泵导出导入(EXPDP和IMPDP)的作用
-						1）实现逻辑备份和逻辑恢复.
-						2）在数据库用户之间移动对象.
-						3）在数据库之间移动对象
-						4）实现表空间搬移...<br/>
-						<a href="#">自由飞</a> 发布于 2015-11-12 21:54 评论(0)阅读(31)
-						</p>
-				</div>
+					<h6><a href="${ctx}/f/${item.id}.html">${item.title}</a></h6>
+					<div class="aContent">
+					<p>${fnc:transCodage(item.articleData.content)}
+					<br/>
+						<a href="#">${item.createBy.name}</a> 发布于 ${item.createDate} 评论(0)阅读(31)
+					</p>
+					</div>
+				</div>	
+				</c:forEach>
 				<br/>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">上一页</a>1,2,3...17<a href="#">下一页</a>
 			</div>

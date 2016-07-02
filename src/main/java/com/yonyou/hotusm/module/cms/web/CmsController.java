@@ -1,8 +1,8 @@
 package com.yonyou.hotusm.module.cms.web;
 
+
 import javax.validation.Valid;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yonyou.hotusm.common.web.BaseController;
 import com.yonyou.hotusm.module.cms.entity.Article;
-import com.yonyou.hotusm.module.cms.entity.ArticleData;
 import com.yonyou.hotusm.module.cms.service.ArticleService;
 
 @RequestMapping("/cms")

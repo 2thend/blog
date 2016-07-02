@@ -2,24 +2,35 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="${ctxStatic}/sys/css/style.css" rel="stylesheet" type="text/css" />
 <link href="${ctxStatic}/sys/css/select.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${ctxStatic}/sys/js/jquery.js"></script>
 <script type="text/javascript" src="${ctxStatic}/sys/js/jquery.idTabs.min.js"></script>
 <script type="text/javascript" src="${ctxStatic}/sys/js/select-ui.min.js"></script>
-<script type="text/javascript" src="${ctxStatic}/sys/editor/kindeditor.js"></script>
-<script type="text/javascript" src="${ctxStatic}/sys/editor/tiny.js"></script>
-<script type="text/javascript" src="${ctxStatic}/ckeditor4.5/ckeditor.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctxStatic}/ueditor1_4_3-utf8-jsp/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctxStatic}/ueditor1_4_3-utf8-jsp/ueditor.all.js"></script>
+<link rel="stylesheet" type="text/css" href="${ctxStatic}/ueditor1_4_3-utf8-jsp/themes/default/css/ueditor.css" />
 <script type="text/javascript">
-    var editor = null;
-    window.onload = function() {
-        editor = CKEDITOR.replace( 'content', {
-            customConfig:'${contextPath}/ckeditor4.1/jwc_config.js'
-        });
-        CKFinder.setupCKEditor( editor, '${contextPath}/ckfinder2.3.1/' );
-    };
+$(document).ready(function(){
+	var ue = UE.getEditor("content", {
+	    //关闭字数统计
+	    wordCount:true,
+	    maximumWords:2000,
+	    autoHeightEnabled: true,
+	    //关闭elementPath
+	    elementPathEnabled:false,
+	    //默认的编辑区域高度
+	    initialFrameHeight:300,
+	    initialFrameWidth:750
+	    //更多其他参数，请参考ueditor.config.js中的配置项
+	});
+	
+	
+});
+
+
+
 </script>
   
 <script type="text/javascript">
@@ -48,10 +59,7 @@ $(document).ready(function(e) {
     </div>
     
     <div class="formbody">
-    
-    
     <div id="usual1" class="usual"> 
-    
     <div class="itab">
   	<ul> 
     <li><a href="#tab1" class="selected">发布博客</a></li> 
@@ -59,32 +67,33 @@ $(document).ready(function(e) {
   	</ul>
     </div> 
     
+    <form:form id="detailForm" method="post" action="${ctx}/cms/save" modelAttribute="article">
+  	<c:if test="${not empty article.id}">
+  		<form:hidden path="id"/>
+  	</c:if>
   	<div id="tab1" class="tabson">
     <ul class="forminfo">
-    <li><label>博客名称<b>*</b></label><input name="" type="text" class="dfinput" value=""  style="width:518px;"/></li>
+    <li><label>博客名称<b>*</b></label>
+    <form:input path="title" cssClass="dfinput" style="width:518px;"/><!-- <input name="title" type="text" class="dfinput" value="" style="width:518px;"/> -->&nbsp;${error}</li>
    
     <li><label>博客分类<b>*</b></label>  
     
 
     <div class="vocation">
-    <select class="select1">
-    <option>Java技术</option>
-    <option>.net技术</option>
-    <option>数据库技术</option>
-    <option>安卓技术</option>
-    <option>IOS技术</option>
-    <option>WEB前端技术</option>
-    </select>
+    <form:select path="category.id" cssClass="select1" items="${categorys}" itemLabel="title" itemValue="id"></form:select>
     </div>
     
     </li>
     <li>
-    <form id="detailForm" method="post">
-    	<textarea id="content" name="content" cols="40"></textarea>
-	</form>
+    	
+    	<form:textarea path="articleData.content" id="content"/>
+    	<input type="hidden" value=""/>
+    	<li><label>&nbsp;</label>
+    	<input name="" type="submit" class="btn" value="马上发布"/></li>
+	
     
     </li>
-    <li><label>&nbsp;</label><input name="" type="button" class="btn" value="马上发布"/></li>
+    </form:form>
     </ul>
     
     </div> 
@@ -118,7 +127,7 @@ $(document).ready(function(e) {
     <table class="tablelist">
     	<thead>
     	<tr>
-        <th>编号<i class="sort"><img src="${ctxStatic}/sys/images/px.gif" /></i></th>
+        <th>标题<i class="sort"><img src="${ctxStatic}/sys/images/px.gif" /></i></th>
         <th>发布时间</th>
         <th>最后更新时间</th>
         <th>阅读</th>
@@ -127,50 +136,21 @@ $(document).ready(function(e) {
         </tr>
         </thead>
         <tbody>
+        <c:forEach items="${articles}" var="item">
         <tr>
-        <td>王金平幕僚：马英九声明字字见血 人活着没意思</td>
-        <td>2013-09-09 15:05</td>
-        <td>2013-09-09 15:05</td>
-        <td>20</td>
-        <td>2</td>
-        <td><a href="#" class="tablelink">编辑</a>     <a href="#" class="tablelink"> 删除</a></td>
-        </tr> 
-        
-        <tr>
-        <td>温州19名小学生中毒流鼻血续：周边部分企业关停</td>
-        <td>2013-09-08 14:02</td>
-        <td>2013-09-08 14:02</td>
-        <td>20</td>
-        <td>2</td>
-        <td><a href="#" class="tablelink">编辑</a>     <a href="#" class="tablelink">删除</a></td>
+	        <td>
+	        	<a href="${ctx}/f/${item.id}.html" target="_blank">${item.title}</a>
+	        </td>
+	        <td>${item.createDate}</td>
+	        <td>${item.updateDate}</td>
+	        <td>${item.hits}</td>
+	        <td>2</td>
+	        <td>
+	        	<a href="${ctx}/a/article/form?id=${item.id}" class="tablelink">编辑</a>
+	            <a href="${ctx}/a/article/del?id=${item.id}" class="tablelink">删除</a>
+	        </td>
         </tr>
-        
-        <tr>
-        <td>社科院:电子商务促进了农村经济结构和社会转型</td>
-        <td>2013-09-07 13:16</td>
-        <td>2013-09-07 13:16</td>
-        <td>20</td>
-        <td>2</td>
-        <td><a href="#" class="tablelink">编辑</a>     <a href="#" class="tablelink">删除</a></td>
-        </tr>
-        
-        <tr>
-        <td>江西&quot;局长违规建豪宅&quot;：局长检讨</td>
-        <td>2013-09-06 10:36</td>
-        <td>2013-09-06 10:36</td>
-        <td>20</td>
-        <td>2</td>
-        <td><a href="#" class="tablelink">编辑</a>     <a href="#" class="tablelink">删除</a></td>
-        </tr>
-        
-        <tr>
-        <td>温州19名小学生中毒流鼻血续：周边部分企业关停</td>
-        <td>2013-09-08 14:02</td>
-        <td>2013-09-08 14:02</td>
-        <td>20</td>
-        <td>2</td>
-        <td><a href="#" class="tablelink">编辑</a>     <a href="#" class="tablelink">删除</a></td>
-        </tr>
+        </c:forEach>
     
         </tbody>
     </table>

@@ -16,12 +16,13 @@
 			<value>
 				/static/** = anon
 				/userfiles/** = anon
-				${adminPath}/cas = cas
+				<!-- ${adminPath}/cas = cas
 				${adminPath}/register = anon
 				${adminPath}/validate = anon
 				${adminPath}/login = authc
 				${adminPath}/logout = logout
-				${adminPath}/** = user
+				/** = user
+				 -->
 			</value>
 		</constructor-arg>
 	</bean>

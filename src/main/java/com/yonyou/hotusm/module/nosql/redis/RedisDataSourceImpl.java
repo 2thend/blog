@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisSentinelPool;
-import redis.clients.jedis.ShardedJedis;
-import redis.clients.jedis.ShardedJedisPool;
 
 @Repository("redisDataSource")
 public class RedisDataSourceImpl implements RedisDataSource {

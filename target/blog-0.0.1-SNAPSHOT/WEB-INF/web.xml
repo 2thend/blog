@@ -1,13 +1,17 @@
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
+<web-app  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+    http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-	<display-name>JeeSite</display-name>
+	<display-name>Blog</display-name>
  <!-- 配置spring容器的路径 -->
   <context-param>
   		<param-name>contextConfigLocation</param-name>
-  		<param-value>classpath*:/spring-context*.xml</param-value>
+  		<param-value>
+  		classpath*:/spring-context-redis.xml,
+  		classpath*:/spring-context-shiro.xml,
+  		classpath*:/spring-context.xml,
+  		classpath*:/spring-soap-server.xml
+  		</param-value>
   </context-param>
   <!-- 对spring开始监听 -->
   <listener>
@@ -50,24 +54,33 @@
  	<url-pattern>/</url-pattern>
  </servlet-mapping>
  
+ <!-- 设置REST风格的请求
+ 	能够将POST请求转化为 DELETE 或者是PUT请求.
+ 	:通过在表单的input的name为_method,值为DELETE或者是PUT进行指定
+  -->
+ 	<filter>
+ 		<filter-name>hiddenHttpMethodFilter</filter-name>
+ 		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+ 	</filter>
+ 	
+ 	<filter-mapping>
+		<filter-name>hiddenHttpMethodFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
  <!-- shiro -->
  	<filter>
 		<filter-name>shiroFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	        <init-param> 
+		       <param-name>staticSecurityManagerEnabled</param-name> 
+		       <param-value>true</param-value> 
+	   		</init-param> 
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- ws -->
-	 <listener>  
-    	<listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>  
-  	 </listener>  
-  <servlet>  
-    <servlet-name>blog</servlet-name>  
-    <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>  
-    <load-on-startup>1</load-on-startup>  
-  </servlet>
     <!-- validate -->
     <servlet>
     	<servlet-name>validate</servlet-name>
@@ -78,19 +91,26 @@
     	<url-pattern>/Validate</url-pattern>
     </servlet-mapping>
     
-    
-  <servlet-mapping>  
-    <servlet-name>blog</servlet-name>  
-    <url-pattern>/findUser</url-pattern>  
-  </servlet-mapping>
+    <!-- CXF -->
+    <servlet>
+    	<servlet-name>CXFServlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>CXFServlet</servlet-name>
+		<url-pattern>/cxf/*</url-pattern>
+	</servlet-mapping>
+	
+	
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/error/404.jsp</location>
+		<location>/WEB-INF/views/module/error/404.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/views/error/500.jsp</location>
+		<location>/WEB-INF/views/module/error/500.jsp</location>
 	</error-page>
-	
 
 </web-app>
