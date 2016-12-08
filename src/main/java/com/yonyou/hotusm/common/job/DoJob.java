@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 //@Lazy(false)
 public class DoJob {
 	
-	
 	//@Scheduled(cron="0 * * * * ?")
 	public void doJob(){
 		System.out.println("定时执行任务"+new Date().toLocaleString());

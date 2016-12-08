@@ -4,7 +4,6 @@ public class JdbcContextHolder {
 	
 	private static final ThreadLocal<String> contextHodler=new ThreadLocal<String>();
 	
-	
 	public static void setJdbcType(String jdbcType){
 		contextHodler.set(jdbcType);
 	}

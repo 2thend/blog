@@ -106,7 +106,6 @@ public class SystemAuthorizingRealm extends AuthorizingRealm implements Initiali
 
 	}
 	//在bean初始化完成以后  设置校验的规则
-	@Override
 	public void afterPropertiesSet() throws Exception {
 		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(UserService.HASH_ALGORITHM);
 		matcher.setHashIterations(UserService.HASH_INTERATIONS);

@@ -74,7 +74,6 @@ public class Main {
 		
 		new Runnable() {
 			
-			@Override
 			public void run() {
 				
 			}
@@ -96,7 +95,6 @@ public class Main {
 			this.user = user;
 			this.schema=schema;
 		}
-		@Override
 		public void run() {
 			
 		}

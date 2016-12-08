@@ -16,12 +16,10 @@ import org.springframework.web.servlet.View;
 @Component
 public class HelloView implements View{
 
-	@Override
 	public String getContentType() {
-		return "text/html";
+		return "text/html;charset=UTF-8";
 	}
 
-	@Override
 	public void render(Map<String, ?> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		response.getWriter().write("自定义视图");

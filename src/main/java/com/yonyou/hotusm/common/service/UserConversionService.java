@@ -18,7 +18,6 @@ public class UserConversionService implements Converter<String, User>{
 	/**
 	 * 传入字符串转化为user
 	 */
-	@Override
 	public User convert(String source) {
 		if(null!=source){
 			/*  name-age */

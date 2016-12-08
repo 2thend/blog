@@ -32,6 +32,7 @@ public class SessionManager extends DefaultWebSessionManager{
 	@Override
 	protected Serializable getSessionId(ServletRequest request,
 			ServletResponse response) {
+		
 		String sid=request.getParameter("_sid");
 		if(org.apache.commons.lang.StringUtils.isNotBlank(sid)){
 			if(WebUtils.isTrue(request, "_cookie")){
@@ -47,6 +48,7 @@ public class SessionManager extends DefaultWebSessionManager{
 			request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
 			return sid;
 		}
+		
 		return super.getSessionId(request, response);
 	}
 
@@ -62,6 +64,7 @@ public class SessionManager extends DefaultWebSessionManager{
 
 	@Override
 	protected Session newSessionInstance(SessionContext context) {
+		
 		Session session=super.newSessionInstance(context);
 		session.setTimeout(getGlobalSessionTimeout());
 		return session;
@@ -70,6 +73,7 @@ public class SessionManager extends DefaultWebSessionManager{
 	@Override
 	protected Session retrieveSession(SessionKey sessionKey)
 			throws UnknownSessionException {
+		
 		try {
 			return super.retrieveSession(sessionKey);
 		} catch (Exception e) {

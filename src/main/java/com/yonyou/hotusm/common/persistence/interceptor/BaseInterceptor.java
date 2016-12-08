@@ -19,7 +19,6 @@ import org.apache.ibatis.session.RowBounds;
             ResultHandler.class }) })
 public class BaseInterceptor implements Interceptor{
 
-	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
 		
 		Object[] args = invocation.getArgs();
@@ -30,12 +29,10 @@ public class BaseInterceptor implements Interceptor{
 		return invocation.proceed();
 	}
 
-	@Override
 	public Object plugin(Object arg0) {
 		return null;
 	}
 
-	@Override
 	public void setProperties(Properties arg0) {
 		
 	}
