@@ -45,11 +45,6 @@
 		</property>
 	</bean>
 	
-	<!-- CAS认证过滤器 -->  
-	<bean id="casFilter" class="org.apache.shiro.cas.CasFilter">  
-		<property name="failureUrl" value="${adminPath}/login"/>
-	</bean>
-	
 	<!-- 定义Shiro安全管理配置 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="sessionManager" ref="sessionManager" />

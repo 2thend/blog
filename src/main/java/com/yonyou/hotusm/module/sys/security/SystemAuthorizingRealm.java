@@ -1,12 +1,11 @@
 package com.yonyou.hotusm.module.sys.security;
 
-import java.io.Serializable;
-
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import com.yonyou.hotusm.common.utils.Encodes;
+import com.yonyou.hotusm.module.sys.dao.UserDao;
+import com.yonyou.hotusm.module.sys.entity.User;
+import com.yonyou.hotusm.module.sys.service.UserService;
+import com.yonyou.hotusm.module.sys.util.UserUtils;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -18,13 +17,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yonyou.hotusm.common.utils.Encodes;
-import com.yonyou.hotusm.module.sys.dao.UserDao;
-import com.yonyou.hotusm.module.sys.entity.User;
-import com.yonyou.hotusm.module.sys.service.UserService;
-import com.yonyou.hotusm.module.sys.util.UserUtils;
+import java.io.Serializable;
 
-@Service
+@Service("systemAuthorizingRealm")
 public class SystemAuthorizingRealm extends AuthorizingRealm implements InitializingBean{
 	
 	@Autowired

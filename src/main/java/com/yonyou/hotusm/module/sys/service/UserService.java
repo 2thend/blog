@@ -1,15 +1,13 @@
 package com.yonyou.hotusm.module.sys.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.yonyou.hotusm.common.security.Digests;
 import com.yonyou.hotusm.common.utils.Encodes;
-import com.yonyou.hotusm.module.cms.dao.ArticleDao;
 import com.yonyou.hotusm.module.sys.dao.UserDao;
 import com.yonyou.hotusm.module.sys.entity.User;
 import com.yonyou.hotusm.module.sys.util.UserUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -21,9 +19,7 @@ public class UserService {
 	
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private ArticleDao articleDao;
-	
+
 	@Transactional(readOnly=true)
 	public void save(User user){
 		try {
@@ -55,6 +51,7 @@ public class UserService {
 		user.setId(temp.getId());
 		userDao.update(user);
 	}
+
 	//为明文密码加密
 	public String encryptionPassword(String plainPassword){
 		byte[] salt = Digests.generateSalt(SALT_SIZE);
