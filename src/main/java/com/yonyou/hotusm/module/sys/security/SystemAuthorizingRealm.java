@@ -15,11 +15,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 
-@Service("systemAuthorizingRealm")
 public class SystemAuthorizingRealm extends AuthorizingRealm implements InitializingBean{
 	
 	@Autowired
