@@ -1,8 +1,8 @@
 package com.yonyou.hotusm.common.security.session;
 
-import java.util.Collection;
-
 import org.apache.shiro.session.Session;
+
+import java.util.Collection;
 
 /**
  * sessionDAO

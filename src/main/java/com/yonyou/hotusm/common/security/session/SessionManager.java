@@ -1,14 +1,5 @@
 package com.yonyou.hotusm.common.security.session;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
@@ -21,6 +12,14 @@ import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.util.WebUtils;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+
 /***
  * 
  * @author Hotusm
@@ -28,7 +27,10 @@ import org.apache.shiro.web.util.WebUtils;
  */
 public class SessionManager extends DefaultWebSessionManager{
 
-	
+	/*
+	 *DefaultWebSessionManager 实现了DefaultSessionManager的功能 并在其上实现了web的功能
+	 * 也就是在上面实现了将SessionId 存到了Cookie中
+	 * */
 	@Override
 	protected Serializable getSessionId(ServletRequest request,
 			ServletResponse response) {
